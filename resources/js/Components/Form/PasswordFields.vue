@@ -24,15 +24,9 @@ const passwordMismatch = computed(() => {
 
 <template>
     <div>
-        <InputLabel for="password" :value="passwordLabel" />
-        <PasswordInput
-            id="password"
-            v-model="form.password"
-            required
-            autocomplete="new-password"
-            class="mt-1 block w-full pr-10"
-            :showStrength="true"
-        />
+        <InputLabel class="mt-4" for="password" :value="passwordLabel" />
+        <PasswordInput id="password" v-model="form.password" required autocomplete="new-password"
+            class="mt-1 block w-full pr-10" :showStrength="true" />
         <small class="text-gray-500">
             Password must be at least 8 characters and include uppercase, lowercase, number, and symbol.
         </small>
@@ -40,14 +34,9 @@ const passwordMismatch = computed(() => {
     </div>
 
     <div>
-        <InputLabel for="password_confirmation" value="Confirm Password" />
-        <PasswordInput
-            id="password_confirmation"
-            v-model="form.password_confirmation"
-            required
-            autocomplete="new-password"
-            class="mt-1 block w-full pr-10"
-        />
+        <InputLabel class="mt-4" for="password_confirmation" value="Confirm Password" />
+        <PasswordInput id="password_confirmation" v-model="form.password_confirmation" required
+            autocomplete="new-password" class="mt-1 block w-full pr-10" />
         <InputError class="mt-2" :message="form.errors.password_confirmation" />
         <InputError v-if="passwordMismatch" class="mt-1" message="Passwords do not match." />
     </div>
