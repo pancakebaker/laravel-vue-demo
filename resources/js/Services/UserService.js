@@ -1,4 +1,3 @@
-// resources/js/Services/UserService.js
 import { watch } from 'vue';
 import axios from 'axios';
 
@@ -51,5 +50,30 @@ export default class UserService {
                 }
             }, this.debounceTime);
         });
+    }
+
+    scrollToFirstError(errors) {
+        const firstField = Object.keys(errors)[0];
+        const el = document.getElementById(firstField);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    async validateStep(schema, onSuccess, onError) {
+        try {
+            await schema.validate(this.form.data(), { abortEarly: false });
+
+            if (this.usernameExists?.value || this.emailExists?.value) return;
+
+            this.form.clearErrors();
+            onSuccess?.();
+        } catch (err) {
+            const validationErrors = {};
+            err.inner.forEach((e) => {
+                validationErrors[e.path] = e.message;
+            });
+            this.form.setError(validationErrors);
+            this.scrollToFirstError(validationErrors);
+            onError?.(validationErrors);
+        }
     }
 }

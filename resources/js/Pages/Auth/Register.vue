@@ -15,10 +15,10 @@ import { stepOneSchema, stepTwoSchema } from '@/Validations/registerSchema';
 
 defineOptions({ layout: AppLayout });
 
-const showErrorModal = ref(false);
-const errorMessage = ref('');
 const step = ref(1);
 const showSuccessModal = ref(false);
+const showErrorModal = ref(false);
+const errorMessage = ref('');
 const usernameExists = ref(false);
 const emailExists = ref(false);
 const usernameInput = ref(null);
@@ -38,43 +38,23 @@ const userService = new UserService(form, { usernameExists, emailExists, debounc
 userService.watchUsername();
 userService.watchEmail();
 
-const scrollToFirstError = (errors) => {
-    const firstField = Object.keys(errors)[0];
-    const el = document.getElementById(firstField);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-};
-
-const validateStepOne = async () => {
-    try {
-        await stepOneSchema.validate(form.data(), { abortEarly: false });
-        form.clearErrors();
+const validateStepOne = () => {
+    userService.validateStep(stepOneSchema, async () => {
         step.value = 2;
         await nextTick();
         usernameInput.value?.focus();
-    } catch (err) {
-        const validationErrors = {};
-        err.inner.forEach((e) => {
-            validationErrors[e.path] = e.message;
-        });
-        form.setError(validationErrors);
-        scrollToFirstError(validationErrors);
-    }
+    });
 };
 
-const validateStepTwo = async () => {
-    try {
-        await stepTwoSchema.validate(form.data(), { abortEarly: false });
-
-        if (usernameExists.value || emailExists.value) return;
-
-        form.clearErrors();
+const validateStepTwo = () => {
+    userService.validateStep(stepTwoSchema, async () => {
         try {
             await form.post(route('register'), {
                 preserveScroll: true,
                 onSuccess: () => {
                     showSuccessModal.value = true;
                 },
-                onError: (errors) => {
+                onError: () => {
                     errorMessage.value = 'Registration failed. Please check your inputs.';
                     showErrorModal.value = true;
                 },
@@ -88,15 +68,7 @@ const validateStepTwo = async () => {
             }
             showErrorModal.value = true;
         }
-
-    } catch (err) {
-        const validationErrors = {};
-        err.inner.forEach((e) => {
-            validationErrors[e.path] = e.message;
-        });
-        form.setError(validationErrors);
-        scrollToFirstError(validationErrors);
-    }
+    });
 };
 
 const redirectToLogin = () => {
@@ -106,9 +78,9 @@ const redirectToLogin = () => {
 </script>
 
 <template>
-
     <Head title="Register" />
 
+    <!-- Success Modal -->
     <Modal :show="showSuccessModal" @close="redirectToLogin" maxWidth="sm">
         <div class="p-6 text-center">
             <h3 class="text-lg font-semibold text-gray-800">Registration Successful</h3>
@@ -122,6 +94,7 @@ const redirectToLogin = () => {
         </div>
     </Modal>
 
+    <!-- Error Modal -->
     <Modal :show="showErrorModal" @close="showErrorModal = false" maxWidth="sm">
         <div class="p-6 text-center">
             <h3 class="text-lg font-semibold text-red-600">Registration failed. Please check your inputs.</h3>
@@ -136,7 +109,6 @@ const redirectToLogin = () => {
     </Modal>
 
     <StepProgressBar :step="step" :steps="['Personal Information', 'Username / Password']" />
-
 
     <form class="space-y-8" @submit.prevent>
         <!-- Step 1 -->
@@ -159,10 +131,7 @@ const redirectToLogin = () => {
                 <InputLabel for="username" value="Username" />
                 <TextInput id="username" ref="usernameInput" v-model="form.username" type="text"
                     class="mt-1 block w-full" />
-                <InputError :message="form.errors.username" />
-                <p v-if="usernameExists" class="text-sm text-red-600 mt-1">
-                    This username is already registered.
-                </p>
+                    <InputError :message="[usernameExists ? 'This username is already registered.' : null, form.errors.username]" />
             </div>
 
             <PasswordFields :form="form" />

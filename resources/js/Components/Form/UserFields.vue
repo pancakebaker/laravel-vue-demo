@@ -43,10 +43,7 @@ defineProps({
                     <InputLabel for="email" value="Email" />
                     <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
                         autocomplete="email" />
-                    <InputError class="mt-2" :message="form.errors.email" />
-                    <p v-if="emailExists" class="text-sm text-red-600 mt-1">
-                        This email is already registered.
-                    </p>
+                    <InputError class="mt-2" :message="[emailExists ? 'This email is already registered.' : null, form.errors.email]" />
                 </div>
                 <div>
                     <InputLabel for="mobile_number" value="Mobile Number" />
