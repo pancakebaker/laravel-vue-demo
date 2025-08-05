@@ -9,7 +9,6 @@ This is a full-stack Laravel 12 + Vue 3 application built with Inertia.js and Ta
 - Tailwind CSS for utility-first styling
 - Vite for fast asset bundling
 - Authentication system (login, registration)
-- Password update form
 - Reusable Vue components
 - Clean architecture with Blade + Vue hybrid rendering
 
@@ -23,7 +22,7 @@ This is a full-stack Laravel 12 + Vue 3 application built with Inertia.js and Ta
 | Frontend    | Vue 3 + Inertia.js |
 | Styling     | Tailwind CSS       |
 | Build Tool  | Vite               |
-| Auth        | Laravel Breeze (if used) or custom |
+| Auth        | Laravel Breeze     |
 | DB          | MySQL (configurable) |
 
 ---
@@ -33,11 +32,12 @@ This is a full-stack Laravel 12 + Vue 3 application built with Inertia.js and Ta
 ### Backend Setup
 
 ```bash
+# Backend setup
 composer install
 cp .env.example .env
 php artisan key:generate
 
-#Update the .env file with your database credentials:
+# Update the .env file with your database credentials:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -45,10 +45,10 @@ DB_DATABASE=your_database
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 
-#Run migrations:
+# Run migrations:
 php artisan migrate
 
-#Frontend Setup
+# Frontend Setup
 npm install
 
 # Running the Application
