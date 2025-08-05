@@ -15,6 +15,8 @@ import { stepOneSchema, stepTwoSchema } from '@/Validations/registerSchema';
 
 defineOptions({ layout: AppLayout });
 
+const showErrorModal = ref(false);
+const errorMessage = ref('');
 const step = ref(1);
 const showSuccessModal = ref(false);
 const usernameExists = ref(false);
