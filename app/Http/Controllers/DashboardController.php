@@ -14,7 +14,7 @@ class DashboardController extends Controller
      */
     public function get(Request $request): Response
     {
-        return Inertia::render('Dashboard', [
+        return Inertia::render('Auth/Dashboard', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);

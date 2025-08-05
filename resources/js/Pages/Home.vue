@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Login from '@/Pages/Auth/Login.vue';
-import Dashboard from '@/Pages/Dashboard.vue';
+import Dashboard from '@/Pages/Auth/Dashboard.vue';
 
 defineProps({
     canLogin: Boolean,
