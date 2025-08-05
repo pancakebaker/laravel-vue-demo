@@ -43,7 +43,7 @@ const submit = () => {
         <div class="w-full lg:w-1/2 p-8 flex flex-col justify-center text-center">
             <h1 class="text-3xl lg:text-5xl font-bold text-gray-800">Take charge of yourself</h1>
             <p class="mt-4 text-gray-600 text-sm lg:text-base max-w-md mx-auto">
-                Manage your account with ease, from registration to updating your profile
+                Manage your account with ease, ease of registration
             </p>
             <img src="/images/relaxed-man.webp" alt="relaxed-man" class="mt-8 w-full max-w-sm mx-auto" />
         </div>

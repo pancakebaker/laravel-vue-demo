@@ -8,7 +8,7 @@ defineOptions({
 </script>
 
 <template>
-    <Head title="Profile" />
+    <Head title="Dashboard" />
 
     <!-- 👇 H1 Heading -->
     <h1 class="text-3xl font-bold text-center text-indigo-700 mt-8">

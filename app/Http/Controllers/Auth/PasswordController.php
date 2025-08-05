@@ -19,7 +19,7 @@ class PasswordController extends Controller
             'current_password' => ['required', 'current_password'],
             'password' => [
                 'required',
-                Password::defaults(),
+                Password::min(8)->mixedCase()->letters()->numbers()->symbols(),
                 'confirmed',
                 function ($attribute, $value, $fail) use ($request) {
                     if (Hash::check($value, $request->user()->password)) {

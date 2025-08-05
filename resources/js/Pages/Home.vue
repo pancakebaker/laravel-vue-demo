@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Login from '@/Pages/Auth/Login.vue';
-import Edit from '@/Pages/Profile/Edit.vue';
+import Dashboard from '@/Pages/Dashboard.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -26,7 +26,7 @@ defineProps({
 
     <AppLayout>
         <div v-if="$page.props.auth.user">
-            <Edit />
+            <Dashboard />
         </div>
 
         <div v-else>
