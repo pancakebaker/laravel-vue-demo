@@ -35,7 +35,12 @@ class RegisteredUserController extends Controller
             'middle_name' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z\s-]+$/'],
             'surname' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s-]+$/'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'mobile_number' => ['required', 'string', 'max:255'],
+            'mobile_number' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^(09\d{9}|\+639\d{9})$/'
+            ],
             'username' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::min(8)->mixedCase()->letters()->numbers()->symbols()],
         ]);

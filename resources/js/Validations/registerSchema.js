@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 const nameRegex = /^[a-zA-Z\s-]+$/;
+const phMobileRegex = /^(09\d{9}|\+639\d{9})$/;
 
 export const stepOneSchema = yup.object({
   first_name: yup
@@ -31,7 +32,8 @@ export const stepOneSchema = yup.object({
   mobile_number: yup
     .string()
     .required('Mobile number is required')
-    .max(255, 'Mobile number must be less than 255 characters'),
+    .max(255, 'Mobile number must be less than 255 characters')
+    .matches(phMobileRegex, 'Mobile number must start with 09 or +639 and be followed by 9 digits'),
 });
 
 const passwordComplexity = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/;

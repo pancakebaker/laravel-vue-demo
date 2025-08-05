@@ -53,6 +53,9 @@ defineProps({
                     <TextInput id="mobile_number" type="text" class="mt-1 block w-full" v-model="form.mobile_number"
                         required autocomplete="tel" />
                     <InputError class="mt-2" :message="form.errors.mobile_number" />
+                    <small class="text-gray-500">
+                        Must be a valid PH mobile number (e.g., 09171234567 or +639171234567)
+                    </small>
                 </div>
             </div>
         </div>
